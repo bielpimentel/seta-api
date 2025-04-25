@@ -1,0 +1,7 @@
+CREATE TABLE access_logs (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  type SMALLINT NOT NULL,
+  access_date_time TIMESTAMP NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
