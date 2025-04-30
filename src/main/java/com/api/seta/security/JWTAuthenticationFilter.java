@@ -35,7 +35,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
       return;
     }
 
-    String token = authHeader.substring(7); // Remove "Bearer " do começo
+    String token = authHeader.substring(7);
 
     try {
       String userId = jwtService.getUserIdFromToken(token);

@@ -1,30 +1,36 @@
-package com.api.seta.controller;
+package com.api.seta.controller.admin;
 
 import com.api.seta.dto.UserDTO;
 import com.api.seta.mapper.UserMapper;
 import com.api.seta.model.User;
 import com.api.seta.service.UserService;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("admin/users")
+public class AdminUserController {
 
   private final UserService userService;
   private final UserMapper mapper;
 
-  public UserController(UserService userService, UserMapper mapper) {
+  public AdminUserController(UserService userService, UserMapper mapper) {
     this.mapper = mapper;
     this.userService = userService;
   }
 
   @GetMapping
-  public List<User> getAll() {
-    return userService.findAll();
+  public ResponseEntity<Page<User>> getAll(
+      @RequestParam(required = false) String search,
+      @PageableDefault(size = 25, sort = "id") Pageable pageable
+  ) {
+    Page<User> users = userService.findAll(search, pageable);
+
+    return ResponseEntity.ok(users);
   }
 
   @GetMapping("/{id}")
