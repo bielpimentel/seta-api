@@ -2,7 +2,9 @@ package com.api.seta.service;
 
 import com.api.seta.model.User;
 import com.api.seta.repository.UserRepository;
-import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,8 +16,10 @@ public class UserService {
     this.repository = repository;
   }
 
-  public List<User> findAll() {
-    return repository.findAll();
+  public Page<User> findAll(String search, Pageable pageable) {
+    if (search == null || search.isBlank()) return repository.findAll(pageable);
+
+    return repository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search, search, pageable);
   }
 
   public User findById(Long id) {

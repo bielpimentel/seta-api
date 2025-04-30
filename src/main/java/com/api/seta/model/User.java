@@ -1,6 +1,8 @@
 package com.api.seta.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,20 +21,20 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotBlank
   private String name;
 
+  @NotBlank
   @Column(unique = true, nullable = false)
   private String email;
 
+  @NotBlank
   private String password;
 
   private Role role = Role.USER;
 
   @Column(name = "qrcode_path")
   private String qrCodePath;
-
-  @Column(name = "email_verified_at")
-  private LocalDateTime emailVerifiedAt;
 
   @CreationTimestamp
   @Column(name = "created_at", updatable = false)
