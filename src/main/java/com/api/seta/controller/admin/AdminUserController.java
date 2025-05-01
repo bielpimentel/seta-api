@@ -26,7 +26,7 @@ public class AdminUserController {
   @GetMapping
   public ResponseEntity<Page<User>> getAll(
       @RequestParam(required = false) String search,
-      @PageableDefault(size = 25, sort = "id") Pageable pageable
+      @PageableDefault(size = 10, sort = "id") Pageable pageable
   ) {
     Page<User> users = userService.findAll(search, pageable);
 
