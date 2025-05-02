@@ -1,6 +1,8 @@
 package com.api.seta.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +19,7 @@ public class MailExtension {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotBlank
   @Column(name = "mail_extension", nullable = false, unique = true)
   private String mailExtension;
 
