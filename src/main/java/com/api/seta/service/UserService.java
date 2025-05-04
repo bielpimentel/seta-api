@@ -1,5 +1,6 @@
 package com.api.seta.service;
 
+import com.api.seta.model.Role;
 import com.api.seta.model.User;
 import com.api.seta.repository.UserRepository;
 
@@ -16,10 +17,20 @@ public class UserService {
     this.repository = repository;
   }
 
-  public Page<User> findAll(String search, Pageable pageable) {
-    if (search == null || search.isBlank()) return repository.findAll(pageable);
+  public Page<User> findAll(String search, Role role, Pageable pageable) {
+    if ((search != null && !search.isBlank()) && role == null) {
+      return repository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search, search, pageable);
+    }
 
-    return repository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search, search, pageable);
+    if ((search == null || search.isBlank()) && role != null) {
+      return repository.findByRole(role, pageable);
+    }
+
+    if (search != null && !search.isBlank() && role != null) {
+      return repository.searchByNameOrEmailAndRole(search, role, pageable);
+    }
+
+    return repository.findAll(pageable);
   }
 
   public User findById(Long id) {
