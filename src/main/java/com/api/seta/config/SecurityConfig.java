@@ -29,7 +29,7 @@ public class SecurityConfig {
           .csrf(csrf -> csrf.disable())
           .cors(cors -> cors.configurationSource(corsConfigurationSource()))
           .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login/**", "/logout/**").permitAll()
+                .requestMatchers("/login/**", "/logout/**", "/new-account/**").permitAll()
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
                 .anyRequest().authenticated()
           )
