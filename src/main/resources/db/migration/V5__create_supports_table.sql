@@ -1,0 +1,9 @@
+CREATE TABLE supports (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  phone_number VARCHAR(20) NOT NULL,
+  subject VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_support_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
