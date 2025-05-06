@@ -5,10 +5,11 @@ import com.api.seta.model.MailExtension;
 import com.api.seta.model.NewAccountRequest;
 import com.api.seta.repository.MailExtensionRepository;
 import com.api.seta.repository.NewAccountRequestRepository;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,11 +24,18 @@ public class NewAccountRequestService {
   }
 
 
-  public List<NewAccountRequest> findAll() {
-    return repository.findAll();
+  public Page<NewAccountRequest> findAll(String search, Pageable pageable) {
+    if (search != null && !search.isBlank()) {
+      return repository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(search, search, pageable);
+    }
+    return repository.findAll(pageable);
   }
 
-  public NewAccountRequest createNewAccountRequest(NewAccountRequestDTO dto) {
+  public NewAccountRequest findByEmail(String email) {
+    return repository.findByEmail(email).orElse(null);
+  }
+
+  public NewAccountRequest create(NewAccountRequestDTO dto) {
     String email = dto.email();
     String domain = extractDomain(email);
 
@@ -55,5 +63,9 @@ public class NewAccountRequestService {
     if (atIndex == -1) throw new IllegalArgumentException("E-mail inválido");
 
     return email.substring(atIndex);
+  }
+
+  public void delete(NewAccountRequest request) {
+    repository.delete(request);
   }
 }

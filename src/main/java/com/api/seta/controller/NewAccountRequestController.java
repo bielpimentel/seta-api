@@ -21,11 +21,11 @@ public class NewAccountRequestController {
 
   @PostMapping
   public ResponseEntity<NewAccountRequest> requestNewAccount(@RequestBody NewAccountRequestDTO dto) {
-    NewAccountRequest newAccount = service.createNewAccountRequest(dto);
+    NewAccountRequest newAccount = service.create(dto);
     if (newAccount == null) return ResponseEntity.badRequest().body(null);
 
     service.store(newAccount);
-    emailService.newAccount(newAccount.getEmail(), newAccount.getToken());
+    emailService.newAccountMail(newAccount);
 
     return ResponseEntity.created(null).body(newAccount);
   }
