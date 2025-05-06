@@ -1,0 +1,14 @@
+spring.application.name=example-app
+spring.datasource.url=jdbc:postgresql://localhost:5432/example-app
+spring.datasource.username=db_username
+spring.datasource.password=db_password
+
+api.security.token.secret=JWT_SECRET
+api.security.token.expiration=86400000
+
+spring.mail.host=smtp.test.com
+spring.mail.port=587
+spring.mail.username=email@test.com
+spring.mail.password=email_password
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
