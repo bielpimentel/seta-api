@@ -16,7 +16,8 @@ public class EmailService {
   }
 
   public void newAccountMail(NewAccountRequest register) {
-    String text = "Clique no link para completar seu cadastro: http://localhost:8080/account/confirm?token=" + register.getToken();
+    String url = "http://localhost:8080/new-account/" + register.getToken() + "/" + register.getEmail();
+    String text = "Clique no link para completar seu cadastro: " + url;
     
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom("noreply@seta.com");
@@ -27,7 +28,8 @@ public class EmailService {
   }
 
   public void resendNewAccountMail(NewAccountRequest register) {
-    String text = "Você possui uma solicitação de cadastro pendente. Clique no link para finalizar: http://localhost:8080/account/confirm?token=" + register.getToken();
+    String url = "http://localhost:8080/new-account/" + register.getToken() + "/" + register.getEmail();
+    String text = "Você possui uma solicitação de cadastro pendente. Clique no link para finalizar: " + url;
     
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom("noreply@seta.com");

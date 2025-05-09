@@ -35,6 +35,10 @@ public class NewAccountRequestService {
     return repository.findByEmail(email).orElse(null);
   }
 
+  public NewAccountRequest findByEmailAndToken(String email, String token) {
+    return repository.findByEmailAndToken(email, token).orElse(null);
+  }
+
   public NewAccountRequest create(NewAccountRequestDTO dto) {
     String email = dto.email();
     String domain = extractDomain(email);

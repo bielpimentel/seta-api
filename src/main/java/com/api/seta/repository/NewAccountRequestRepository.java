@@ -11,5 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface NewAccountRequestRepository extends JpaRepository<NewAccountRequest, String> {
   boolean existsByEmail(String email);
   Optional<NewAccountRequest> findByEmail(String email);
+  Optional<NewAccountRequest> findByEmailAndToken(String email, String token);
   Page<NewAccountRequest> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name, String email, Pageable pageable);
 }
