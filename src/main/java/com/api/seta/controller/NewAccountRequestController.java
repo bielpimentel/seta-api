@@ -1,7 +1,7 @@
 package com.api.seta.controller;
 
 import com.api.seta.dto.NewAccountRequestDTO;
-import com.api.seta.dto.NewAccountRequestPasswordDTO;
+import com.api.seta.dto.NewAccountRequestConfirmDTO;
 import com.api.seta.dto.UserDTO;
 import com.api.seta.mapper.UserMapper;
 import com.api.seta.model.NewAccountRequest;
@@ -39,20 +39,19 @@ public class NewAccountRequestController {
     this.service = service;
   }
 
-  @PostMapping("/{token}/{email}")
+  @PostMapping("/{token}")
   public ResponseEntity<User> confirmNewAccount(
       @PathVariable String token, 
-      @PathVariable String email, 
-      @RequestBody @Valid NewAccountRequestPasswordDTO dto
+      @RequestBody @Valid NewAccountRequestConfirmDTO dto
   ) {
-    NewAccountRequest request = service.findByEmailAndToken(email, token);
+    NewAccountRequest request = service.findByEmailAndToken(dto.email(), token);
     
     if (request == null) return ResponseEntity.badRequest().build();
     if (!dto.password().equals(dto.passwordConfirmation())) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "As senhas informadas não conferem");
     }
 
-    UserDTO userDTO = new UserDTO(request.getName(), email, dto.password(), Role.USER);
+    UserDTO userDTO = new UserDTO(request.getName(), dto.email(), dto.password(), Role.USER);
     User savedUser = userService.store(userMapper.toEntity(userDTO));
     service.delete(request);
 

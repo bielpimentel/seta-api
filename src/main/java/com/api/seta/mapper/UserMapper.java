@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.api.seta.dto.UserDTO;
+import com.api.seta.dto.UserResponseDTO;
 import com.api.seta.model.Role;
 import com.api.seta.model.User;
 
@@ -36,6 +37,16 @@ public class UserMapper {
       user.getEmail(),
       user.getPassword(),
       user.getRole()
+    );
+  }
+
+  public UserResponseDTO toResponseDTO(User user) {
+    return new UserResponseDTO(
+      user.getName(),
+      user.getEmail(),
+      user.getQrCodePath(),
+      user.getCreatedAt(),
+      user.getUpdatedAt()
     );
   }
 
