@@ -30,7 +30,7 @@ public class AccessLogService {
     );
   }
 
-  public AccessLog save(AccessLog log) {
+  public AccessLog store(AccessLog log) {
     return repository.save(log);
   }
 }

@@ -31,6 +31,7 @@ public class SecurityConfig {
           .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/login/**", "/logout/**", "/new-account/**").permitAll()
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+                .requestMatchers("/qrcode/read").hasAnyRole("SUPER_ADMIN")
                 .anyRequest().authenticated()
           )
           .addFilterBefore(new JWTAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
