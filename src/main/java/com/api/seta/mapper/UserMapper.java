@@ -44,7 +44,6 @@ public class UserMapper {
     return new UserResponseDTO(
       user.getName(),
       user.getEmail(),
-      user.getQrCodePath(),
       user.getCreatedAt(),
       user.getUpdatedAt()
     );

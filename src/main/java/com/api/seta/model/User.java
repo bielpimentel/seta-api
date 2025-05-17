@@ -33,8 +33,8 @@ public class User {
 
   private Role role = Role.USER;
 
-  @Column(name = "qrcode_path")
-  private String qrCodePath;
+  @Column(name = "qrcode_type")
+  private AccessType qrCodeType;
 
   @CreationTimestamp
   @Column(name = "created_at", updatable = false)

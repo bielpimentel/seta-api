@@ -4,7 +4,7 @@ CREATE TABLE users (
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
   role SMALLINT NOT NULL DEFAULT 2,
-  qrcode_path VARCHAR(255),
+  qrcode_type SMALLINT NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT now(),
   updated_at TIMESTAMP DEFAULT now()
 );

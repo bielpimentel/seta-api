@@ -2,6 +2,9 @@ package com.api.seta.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,9 +22,9 @@ public class AccessLog {
   @JoinColumn(name = "user_id")
   private User user;
 
-  @Enumerated(EnumType.STRING)
   private AccessType type;
 
+  @CreationTimestamp
   @Column(name = "access_date_time")
   private LocalDateTime accessDateTime;
 }
