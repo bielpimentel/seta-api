@@ -1,8 +1,10 @@
 package com.api.seta.mapper;
 
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.api.seta.dto.UserAdminResponseDTO;
 import com.api.seta.dto.UserDTO;
 import com.api.seta.dto.UserResponseDTO;
 import com.api.seta.model.Role;
@@ -47,6 +49,21 @@ public class UserMapper {
       user.getCreatedAt(),
       user.getUpdatedAt()
     );
+  }
+
+  public UserAdminResponseDTO toAdminResponseDTO(User user) {
+    return new UserAdminResponseDTO(
+      user.getId(),
+      user.getName(),
+      user.getEmail(),
+      user.getRole(),
+      user.getCreatedAt(),
+      user.getUpdatedAt()
+    );
+  }
+
+  public Page<UserAdminResponseDTO> toAdminResponseDTO(Page<User> users) {
+    return users.map(user -> toAdminResponseDTO(user));
   }
 
   public User mergeToEntity(User user, UserDTO dto) {

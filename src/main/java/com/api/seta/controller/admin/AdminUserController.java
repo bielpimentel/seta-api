@@ -1,5 +1,6 @@
 package com.api.seta.controller.admin;
 
+import com.api.seta.dto.UserAdminResponseDTO;
 import com.api.seta.dto.UserDTO;
 import com.api.seta.mapper.UserMapper;
 import com.api.seta.model.Role;
@@ -25,14 +26,14 @@ public class AdminUserController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<User>> getAll(
+  public ResponseEntity<Page<UserAdminResponseDTO>> getAll(
       @RequestParam(required = false) String search,
       @RequestParam(required = false) Role role,
       @PageableDefault(size = 10, sort = "id") Pageable pageable
   ) {
     Page<User> users = userService.findAll(search, role, pageable);
 
-    return ResponseEntity.ok(users);
+    return ResponseEntity.ok(mapper.toAdminResponseDTO(users));
   }
 
   @GetMapping("/{id}")
