@@ -5,6 +5,8 @@ spring.datasource.password=db_password
 
 api.security.token.secret=JWT_SECRET
 api.security.token.expiration=86400000
+api.qrcode.token.secret=API_QRCODE_TOKEN_SECRET
+api.qrcode.token.expiration=180000
 
 spring.mail.host=smtp.test.com
 spring.mail.port=587
