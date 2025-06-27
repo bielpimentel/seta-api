@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.api.seta.dto.UserAdminResponseDTO;
 import com.api.seta.dto.UserDTO;
 import com.api.seta.dto.UserResponseDTO;
+import com.api.seta.model.AccessType;
 import com.api.seta.model.Role;
 import com.api.seta.model.User;
 
@@ -27,6 +28,7 @@ public class UserMapper {
     user.setEmail(dto.email());
     user.setPassword(dto.password() != "" ? passwordEncoder.encode(dto.password()) : null);
     user.setRole(dto.role() != null ? dto.role() : Role.USER);
+    user.setQrCodeType(AccessType.ENTRADA);
 
     return user;
   }
